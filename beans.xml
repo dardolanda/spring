@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans	 
+	xmlns="http://www.springframework.org/schema/beans"		
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"	
+	xmlns:p="http://www.springframework.org/schema/p"		
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+    
+    <!-- notar que acá también se puede invocar los atributos para que sean llamados
+    ni bien el bean.xml es llamado.
+    
+    
+    
+    
+    
+    
+     -->
+
+
+	<!-- De esta manera tenemos la Clase Person para ser intanciada. Además, 
+		tenemos como Person tiene un constructor con 2 parámetros, tenemos que agragarlo 
+		en su bean correspondiente, esto se agrega el tag: <constructor-arg> en donde 
+		se define el tipo y nombre del atributo. También se le pueden definir otros 
+		atributos, que en este caso serían propiedades. Se hacer con el tag <property> 
+		Para "inyectar" un objeto a otro, ademas de estar setado ambos beans, se 
+		tiene que agregar como propiedad, como si fuera un atributo ( que de alguna 
+		manera lo es ), y también se agrega con el tag <property> -->
+
+	<!-- 
+	
+	Atributos en el tag bean
+	
+	-->
+	
+	<!--
+	
+	scope: 
+	
+	Singleton - Prototype 
+	
+	Scope como atributo: Cuando no asignamos nada, por defecto 
+	se genera el scope: Singleton, entonces cuando lo instanciamos siempre vamos 
+	a tener el mismo objeto, siempre vamos a tener una referencia del mismo objeto. 
+	(singleton := único objeto)
+	
+	En cambio si aclaramos el scope y asignamos prototype, cada vez que instanciemos 
+	un objeto vamos a tener uno distinto.
+	(prototype := prototipo ) 
+	
+	Notar: Los objetos lo instanciamos de esta manera: 
+	
+	ApplicationContext context = new FileSystemXmlApplicationContext("beans.xml"); 
+	Person persona = (Person) context.getBean("person"); 
+
+
+	
+	init-method  destroy-method 
+	
+	init-method:
+	Esto sirve para ejecutar un método una vez instanciado el objeto, lógico que se 
+	va a ejecutar después del constructor.
+	
+	destroy-method:
+	Este se ejectuta una vez que el objeto fue cerrado. Pero se tiene que tener en 
+	cuenta que el scope debe ser declarado como singleton, sino no se va a utilizar 
+	este método (destroy) que definimos en este atributo destroy-method.
+	
+	init-method="nombre del metodo" 
+	
+	
+	
+	notar que se tiene el autowire para ser llamado con:
+	bytype, byname, constructor,
+		
+	 -->
+
+<!-- se usan como atributos en el tag bean -->
+<!-- 	destroy-method="destroy" -->
+<!-- 	autowire="bytype" -->
+
+	<bean id="person"  class="ar.com.spring.Person" scope="prototype" init-method="init" >
+		<constructor-arg value="777" name="id" type="int"></constructor-arg>
+		<constructor-arg value="Dardo" name="name" type="String"></constructor-arg>
+		<property name="taxId" value="987"></property>
+<!-- 		<property name="adress" ref="adress"></property> -->
+	</bean>
+
+	<bean id="adress" class="ar.com.spring.Adress" scope="prototype" >
+		<constructor-arg value="Adelaina" name="street" type="String"></constructor-arg>
+		<constructor-arg value="4941" name="postCode" type="String"></constructor-arg>
+	</bean>
+	
+	
+
+
+<!-- Annotations: 
+
+	Notar el siguiente Tag: 
+
+	context:annotation-config
+
+
+-->
+
+	
+	
+	<context:annotation-config></context:annotation-config>
+
+</beans>    
+
+
+
+
+
+
