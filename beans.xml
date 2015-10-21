@@ -94,6 +94,9 @@
 	</bean>
 	
 	
+	<bean id="workPlace" class="ar.com.spring.WorkPlace" scope="prototype" >
+	
+	</bean>	
 
 
 <!-- Annotations: 

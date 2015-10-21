@@ -65,9 +65,11 @@ public class App {
     	
     	Person persona = (Person) context.getBean("person");    	
     	Adress adress = (Adress) context.getBean("adress");
+    	WorkPlace workPlace = (WorkPlace) context.getBean("workPlace");
     	
     	
     	persona.speak();
+    	
     	System.out.println(adress);
     	System.out.println(persona);
     	
