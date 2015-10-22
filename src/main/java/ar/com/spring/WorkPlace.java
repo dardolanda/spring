@@ -4,16 +4,7 @@ public class WorkPlace {
 	
 	private int id;
 	private String name;
-	private int number;
-	
-	
-	public WorkPlace(int id, String name, int number){
-		
-		this.id = id;
-		this.name = name;
-		this.number = number;		
-		
-	}
+	private int number;	
 
 
 	public int getId() {
