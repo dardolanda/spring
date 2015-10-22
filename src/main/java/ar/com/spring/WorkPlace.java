@@ -5,7 +5,7 @@ public class WorkPlace {
 	
 	/*
 	 * WorkPlace para hacer la inyección de dependencias a traves de Person.
-	 * 
+	 * Además se puede hacer los edits online desde el GIT
 	 * */
 	
 	private int id;
