@@ -2,6 +2,12 @@ package ar.com.spring;
 
 public class WorkPlace {
 	
+	
+	/*
+	 * WorkPlace para hacer la inyección de dependencias a traves de Person.
+	 * 
+	 * */
+	
 	private int id;
 	private String name;
 	private int number;	
