@@ -70,6 +70,13 @@ public class App {
     	
     	persona.speak();
     	
+    	workPlace.setId(23);
+    	workPlace.setName("Lugar 1");
+    	workPlace.setNumber(1235014);
+    	
+//    	persona.setWorkPlace(workPlace);
+    	
+//    	System.out.println(workPlace);
     	System.out.println(adress);
     	System.out.println(persona);
     	

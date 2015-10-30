@@ -43,6 +43,7 @@ public class WorkPlace {
 	}
 	
 	
+	@Override
 	public String toString(){
 		
 		return "WORKPLACE   -   ID: " + this.id + " Name: " + this.name + " Number: " + this.number;

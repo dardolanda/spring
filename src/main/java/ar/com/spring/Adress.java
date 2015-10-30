@@ -17,8 +17,4 @@ public class Adress {
 		return "Adress [street=" + street + ", postCode=" + postCode + "]";
 	}
 	
-	
-	
-	
-
 }

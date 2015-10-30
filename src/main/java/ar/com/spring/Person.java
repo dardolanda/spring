@@ -15,7 +15,10 @@ public class Person {
 	 * Por eso estamos usando @Autowired := que es la anotation
 	 * que se usa para inyectar el bean.
 	 * */
+	@Autowired
 	private Adress adress;
+	@Autowired
+	private WorkPlace workPlace;
 	
 	
 	public Person(int id, String name){
@@ -39,10 +42,10 @@ public class Person {
 	}
 
 
-	@Autowired
-	public void setAdress(Adress adress) {
-		this.adress = adress;
-	}
+//	@Autowired
+//	public void setAdress(Adress adress) {
+//		this.adress = adress;
+//	}
 	
 	public void init (){
 		
@@ -56,12 +59,24 @@ public class Person {
 		
 	}
 	
+		
+	public WorkPlace getWorkPlace() {
+		return workPlace;
+	}
+
+	
+	
+//	public void setWorkPlace(WorkPlace workPlace) {
+//		this.workPlace = workPlace;
+//	}
+
 
 	public String toString(){
 		
-		return "mi id es: " + this.id + " mi nombre es: " + this.name +
-				"  Este es mi taxtId:  "  + this.taxId  + 
-				"  Esta es mi Adress: " + this.adress;
+		return "Este es mi ID: " + this.id + " mi nombre es: " + this.name +
+				"  \nEste es mi taxtId:  "  + this.taxId  + 
+				"  \nEsta es mi Adress: " + this.adress   + 
+				"  \nEste ese mi WorkPlace:  " + this.workPlace ; 
 		
 	}
 	
