@@ -117,10 +117,28 @@ Esto es lo que hay que arreglar y ver para que ande las propiedades
 
 	<!-- apache data base commons : org.apache.commons.dbcp.BasicDataSource
 	-->
+	
+	
+	<!-- 
+	
+	Los datos para la configuración a la base de datos son los mismos que 
+	usamos en el jdbc.properties:
+	
+	jdbc.username=root
+	jdbc.password=landa
+	jdbc.driver=com.mysql.jdbc.Driver
+	jdbc.url=jdbc:mysql://localhost:3306/springtutorial
+	
+	 -->
 
 	<bean id="dataSource" 
 		  class="org.apache.commons.dbcp.BasicDataSource"
-		  destroy-method="close">		
+		  destroy-method="close">	
+		  <property name="driverClassName" value="${jdbc.driver}"></property>
+		  <property name="url" value="${jdbc.url}"></property>
+		  <property name="username" value="${jdbc.username}"></property>
+		  <property name="password" value="${jdbc.password}"></property>
+		  	
 	</bean>
 
 <!-- Annotations: 
@@ -140,6 +158,7 @@ Esto es lo que hay que arreglar y ver para que ande las propiedades
 	<context:annotation-config></context:annotation-config>
 
 </beans>    
+
 
 
 
