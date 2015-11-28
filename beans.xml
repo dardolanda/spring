@@ -81,6 +81,23 @@
 <!-- 	destroy-method="destroy" -->
 <!-- 	autowire="bytype" -->
 
+<!-- 
+
+
+Esto es lo que hay que arreglar y ver para que ande las propiedades 
+
+	<context:component-scan base-package="com.caveofprogramming.spring.test">
+	</context:component-scan>
+	
+	
+	<context:property-placeholder
+		location="com/caveofprogramming/spring/props/jdbc.properties" />
+
+
+-->
+
+
+
 	<bean id="person"  class="ar.com.spring.Person" scope="prototype" init-method="init" >
 		<constructor-arg value="777" name="id" type="int"></constructor-arg>
 		<constructor-arg value="Dardo" name="name" type="String"></constructor-arg>
@@ -95,20 +112,30 @@
 	
 	
 	<bean id="workPlace" class="ar.com.spring.WorkPlace" scope="prototype" >
-	
+		
 	</bean>	
 
+	<!-- apache data base commons : org.apache.commons.dbcp.BasicDataSource
+	-->
+
+	<bean id="dataSource" 
+		  class="org.apache.commons.dbcp.BasicDataSource"
+		  destroy-method="close">		
+	</bean>
 
 <!-- Annotations: 
 
 	Notar el siguiente Tag: 
 
 	context:annotation-config
-
-
+	
+	Application Server: Provee la habilidad de configurar un pool de conexiones 
+	a la fuente de datos (to configure a pooled Connection Data Source)
+	
+	Por lo tanto se pueden configurar cuantas configuraciones se necesiten.
+	
 -->
 
-	
 	
 	<context:annotation-config></context:annotation-config>
 

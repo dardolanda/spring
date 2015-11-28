@@ -66,9 +66,9 @@ public class Person {
 
 	
 	
-//	public void setWorkPlace(WorkPlace workPlace) {
-//		this.workPlace = workPlace;
-//	}
+	public void setWorkPlace(WorkPlace workPlace) {
+		this.workPlace = workPlace;
+	}
 
 
 	public String toString(){
