@@ -11,6 +11,8 @@
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-core/4.2.1.RELEASE/spring-core-4.2.1.RELEASE.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.2/commons-logging-1.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-expression/4.2.1.RELEASE/spring-expression-4.2.1.RELEASE.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-jdbc/4.2.3.RELEASE/spring-jdbc-4.2.3.RELEASE.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-tx/4.2.3.RELEASE/spring-tx-4.2.3.RELEASE.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/apache/tomcat/tomcat-catalina/8.0.26/tomcat-catalina-8.0.26.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/apache/tomcat/tomcat-servlet-api/8.0.26/tomcat-servlet-api-8.0.26.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/apache/tomcat/tomcat-jsp-api/8.0.26/tomcat-jsp-api-8.0.26.jar"/>

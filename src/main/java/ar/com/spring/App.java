@@ -4,6 +4,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+import ar.com.spring.dao.OffersDAO;
+
 public class App {
 	
     public static void main( String[] args ){
@@ -63,10 +65,11 @@ public class App {
     	
     	ApplicationContext context = new FileSystemXmlApplicationContext("beans.xml");
     	
+    	
     	Person persona = (Person) context.getBean("person");    	
     	Adress adress = (Adress) context.getBean("adress");
     	WorkPlace workPlace = (WorkPlace) context.getBean("workPlace");
-    	
+    	OffersDAO offersDao = (OffersDAO) context.getBean("offersDao");
     	
     	persona.speak();
     	
@@ -79,6 +82,21 @@ public class App {
 //    	System.out.println(workPlace);
     	System.out.println(adress);
     	System.out.println(persona);
+    	
+    	System.out.println("------------ Spring JDBC Test Conection MySql ------------");
+    	
+    	for (Offers offers: offersDao.getOffers()){
+    		
+//    		System.out.println(offers.getName());
+//    		System.out.println(offers.getEmail());
+//    		System.out.println(offers.getId());
+//    		System.out.println(offers.getText());
+    		
+    		System.out.println(offers);
+    		
+    	}
+    	
+    	
     	
     	((FileSystemXmlApplicationContext)context).close();
     	

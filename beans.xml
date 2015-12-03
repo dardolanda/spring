@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans	 
-	xmlns="http://www.springframework.org/schema/beans"		
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"	
-	xmlns:p="http://www.springframework.org/schema/p"		
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 						http://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/context
 						http://www.springframework.org/schema/context/spring-context-3.2.xsd">
-    
-    <!-- notar que acá también se puede invocar los atributos para que sean llamados
-    ni bien el bean.xml es llamado.
-    
-    
-    
-    
-    
-    
-     -->
+	<!-- notar que acá también se puede invocar los atributos para que sean 
+		llamados ni bien el bean.xml es llamado. -->
 
 
 	<!-- De esta manera tenemos la Clase Person para ser intanciada. Además, 
@@ -29,132 +19,76 @@
 		tiene que agregar como propiedad, como si fuera un atributo ( que de alguna 
 		manera lo es ), y también se agrega con el tag <property> -->
 
-	<!-- 
-	
-	Atributos en el tag bean
-	
-	-->
-	
-	<!--
-	
-	scope: 
-	
-	Singleton - Prototype 
-	
-	Scope como atributo: Cuando no asignamos nada, por defecto 
-	se genera el scope: Singleton, entonces cuando lo instanciamos siempre vamos 
-	a tener el mismo objeto, siempre vamos a tener una referencia del mismo objeto. 
-	(singleton := único objeto)
-	
-	En cambio si aclaramos el scope y asignamos prototype, cada vez que instanciemos 
-	un objeto vamos a tener uno distinto.
-	(prototype := prototipo ) 
-	
-	Notar: Los objetos lo instanciamos de esta manera: 
-	
-	ApplicationContext context = new FileSystemXmlApplicationContext("beans.xml"); 
-	Person persona = (Person) context.getBean("person"); 
+	<!-- Atributos en el tag bean -->
+
+	<!-- scope: Singleton - Prototype Scope como atributo: Cuando no asignamos 
+		nada, por defecto se genera el scope: Singleton, entonces cuando lo instanciamos 
+		siempre vamos a tener el mismo objeto, siempre vamos a tener una referencia 
+		del mismo objeto. (singleton := único objeto) En cambio si aclaramos el scope 
+		y asignamos prototype, cada vez que instanciemos un objeto vamos a tener 
+		uno distinto. (prototype := prototipo ) Notar: Los objetos lo instanciamos 
+		de esta manera: ApplicationContext context = new FileSystemXmlApplicationContext("beans.xml"); 
+		Person persona = (Person) context.getBean("person"); init-method destroy-method 
+		init-method: Esto sirve para ejecutar un método una vez instanciado el objeto, 
+		lógico que se va a ejecutar después del constructor. destroy-method: Este 
+		se ejectuta una vez que el objeto fue cerrado. Pero se tiene que tener en 
+		cuenta que el scope debe ser declarado como singleton, sino no se va a utilizar 
+		este método (destroy) que definimos en este atributo destroy-method. init-method="nombre 
+		del metodo" notar que se tiene el autowire para ser llamado con: bytype, 
+		byname, constructor, -->
+
+	<!-- se usan como atributos en el tag bean -->
+	<!-- destroy-method="destroy" -->
+	<!-- autowire="bytype" -->
 
 
-	
-	init-method  destroy-method 
-	
-	init-method:
-	Esto sirve para ejecutar un método una vez instanciado el objeto, lógico que se 
-	va a ejecutar después del constructor.
-	
-	destroy-method:
-	Este se ejectuta una vez que el objeto fue cerrado. Pero se tiene que tener en 
-	cuenta que el scope debe ser declarado como singleton, sino no se va a utilizar 
-	este método (destroy) que definimos en este atributo destroy-method.
-	
-	init-method="nombre del metodo" 
-	
-	
-	
-	notar que se tiene el autowire para ser llamado con:
-	bytype, byname, constructor,
-		
-	 -->
 
-<!-- se usan como atributos en el tag bean -->
-<!-- 	destroy-method="destroy" -->
-<!-- 	autowire="bytype" -->
-
-<!-- 
-
-
-Esto es lo que hay que arreglar y ver para que ande las propiedades 
-
-	<context:component-scan base-package="com.caveofprogramming.spring.test">
+	<context:component-scan base-package="ar.com.spring">
 	</context:component-scan>
-	
-	
+
 	<context:property-placeholder
-		location="com/caveofprogramming/spring/props/jdbc.properties" />
+		location="jdbc.properties" />
 
-
--->
-
-
-
-	<bean id="person"  class="ar.com.spring.Person" scope="prototype" init-method="init" >
+	<bean id="person" class="ar.com.spring.Person" scope="prototype"
+		init-method="init">
 		<constructor-arg value="777" name="id" type="int"></constructor-arg>
 		<constructor-arg value="Dardo" name="name" type="String"></constructor-arg>
 		<property name="taxId" value="987"></property>
-<!-- 		<property name="adress" ref="adress"></property> -->
+		<!-- <property name="adress" ref="adress"></property> -->
 	</bean>
 
-	<bean id="adress" class="ar.com.spring.Adress" scope="prototype" >
+	<bean id="adress" class="ar.com.spring.Adress" scope="prototype">
 		<constructor-arg value="Adelaina" name="street" type="String"></constructor-arg>
 		<constructor-arg value="4941" name="postCode" type="String"></constructor-arg>
 	</bean>
-	
-	
-	<bean id="workPlace" class="ar.com.spring.WorkPlace" scope="prototype" >
-		
-	</bean>	
 
-	<!-- apache data base commons : org.apache.commons.dbcp.BasicDataSource
-	-->
-	
-	
-	<!-- 
-	
-	Los datos para la configuración a la base de datos son los mismos que 
-	usamos en el jdbc.properties:
-	
-	jdbc.username=root
-	jdbc.password=landa
-	jdbc.driver=com.mysql.jdbc.Driver
-	jdbc.url=jdbc:mysql://localhost:3306/springtutorial
-	
-	 -->
 
-	<bean id="dataSource" 
-		  class="org.apache.commons.dbcp.BasicDataSource"
-		  destroy-method="close">	
-		  <property name="driverClassName" value="${jdbc.driver}"></property>
-		  <property name="url" value="${jdbc.url}"></property>
-		  <property name="username" value="${jdbc.username}"></property>
-		  <property name="password" value="${jdbc.password}"></property>
-		  	
+	<bean id="workPlace" class="ar.com.spring.WorkPlace" scope="prototype">
+
 	</bean>
 
-<!-- Annotations: 
+	<!-- apache data base commons : org.apache.commons.dbcp.BasicDataSource -->
 
-	Notar el siguiente Tag: 
 
-	context:annotation-config
-	
-	Application Server: Provee la habilidad de configurar un pool de conexiones 
-	a la fuente de datos (to configure a pooled Connection Data Source)
-	
-	Por lo tanto se pueden configurar cuantas configuraciones se necesiten.
-	
--->
+	<!-- Los datos para la configuración a la base de datos son los mismos que 
+		usamos en el jdbc.properties: jdbc.username=root jdbc.password=landa jdbc.driver=com.mysql.jdbc.Driver 
+		jdbc.url=jdbc:mysql://localhost:3306/springtutorial -->
 
-	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}"></property>
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+
+	</bean>
+
+	<!-- Annotations: Notar el siguiente Tag: context:annotation-config Application 
+		Server: Provee la habilidad de configurar un pool de conexiones a la fuente 
+		de datos (to configure a pooled Connection Data Source) Por lo tanto se pueden 
+		configurar cuantas configuraciones se necesiten. -->
+
+
 	<context:annotation-config></context:annotation-config>
 
 </beans>    
