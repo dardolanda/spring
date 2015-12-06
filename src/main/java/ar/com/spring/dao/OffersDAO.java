@@ -58,7 +58,7 @@ public class OffersDAO {
 		 * 
 		 * */
 		
-		return jdbcTemplate.query("select * from offers", new OffersRowMapper());		
+		return this.jdbcTemplate.query("select * from offers", new OffersRowMapper());		
 		
 	}
 

@@ -7,6 +7,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 
 import ar.com.spring.dao.OffersDAO;
+import ar.com.spring.dao.SingleOfferDAO;
 
 public class App {
 
@@ -70,7 +71,8 @@ public class App {
 		Adress adress = (Adress) context.getBean("adress");
 		WorkPlace workPlace = (WorkPlace) context.getBean("workPlace");
 		OffersDAO offersDao = (OffersDAO) context.getBean("offersDao");
-
+		SingleOfferDAO singleOfferDao = (SingleOfferDAO) context.getBean("singleOfferDao");
+		
 		persona.speak();
 
 		workPlace.setId(23);
@@ -83,6 +85,7 @@ public class App {
 		System.out.println(adress);
 		System.out.println(persona);
 
+		System.out.println();
 		System.out.println("------------ Spring JDBC Test Conection MySql ------------");
 
 		try {
@@ -97,6 +100,13 @@ public class App {
 				System.out.println(offers);
 
 			}
+			
+			System.out.println();
+			System.out.println();
+			System.out.println("Debería ser Pirulino:  " + singleOfferDao.getOfferById(5));
+			
+			
+			
 
 		} catch (CannotGetJdbcConnectionException connectionException) {
 
