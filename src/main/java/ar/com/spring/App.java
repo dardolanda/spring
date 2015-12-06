@@ -5,6 +5,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 
 import ar.com.spring.dao.OffersDAO;
 import ar.com.spring.dao.SingleOfferDAO;
@@ -89,7 +90,39 @@ public class App {
 		System.out.println("------------ Spring JDBC Test Conection MySql ------------");
 
 		try {
+			
+			if(singleOfferDao.deleteById(4)){
+				
+				System.out.println("El integrante con Id: 4 se eliminó correctamente");
+				
+			}
+			
+			System.out.println();
+			
+			
+			/*
+			 * Offers Update desde el objeto sin usar los parámetros, usando:
+			 * BeanPropertySqlParameterSource 
+			 * 
+			 * */
+			Offers offerUpdate = new Offers(5, "pirulino", "pHijoDePuta@forro.com", "no te pido 28 pases seguidos como el Barcelona, te pido 3!!");
+			
+			if(singleOfferDao.updateMail(offerUpdate)){
+				
+				System.out.println("El integrante 5 ha cambiado el mail correctamente.");
+				
+			}
+			/*
+			 * Notar que hicimos el insert desde el DAO directamente, creando el objeto Offers
+			 * con el nuevo constructor.
+			 * */
+			Offers offersDardo = new Offers("Dardo", "dardolanda@gmail.com", "Creando desde Create");
+			Offers offersCarlos = new Offers("Carlos", "carlosleis@gmail.com", "Insert desde Create");
+			
+			singleOfferDao.createOffer(offersDardo);
+			singleOfferDao.createOffer(offersCarlos);			
 
+			System.out.println();
 			for (Offers offers : offersDao.getOffers()) {
 
 				// System.out.println(offers.getName());
