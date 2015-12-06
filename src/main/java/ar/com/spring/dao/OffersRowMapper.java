@@ -16,6 +16,10 @@ public class OffersRowMapper implements RowMapper<Offers>{
 	 * La funcionalidad del rowMapper es la de mappear el JDBC resultSet 
 	 * a un único objeto Offers.
 	 * 
+	 * Notar: row = fila, hilera.
+	 * Por lo tanto, es un registro de la tabla a la que estoy haciendo 
+	 * una consulta. 
+	 * 
 	 * 
 	 * */
 
