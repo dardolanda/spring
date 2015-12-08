@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:context="http://www.springframework.org/schema/context"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 						http://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/context
-						http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+						http://www.springframework.org/schema/context/spring-context-3.2.xsd
+						http://www.springframework.org/schema/tx
+						http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+						
+						
 	<!-- notar que acá también se puede invocar los atributos para que sean 
 		llamados ni bien el bean.xml es llamado. -->
 
@@ -46,9 +52,11 @@
 	<context:component-scan base-package="ar.com.spring">
 	</context:component-scan>
 
-	<context:property-placeholder
-		location="jdbc.properties" />
+	<context:property-placeholder location="jdbc.properties" />
 
+
+
+	<!-- beans -->
 	<bean id="person" class="ar.com.spring.Person" scope="prototype"
 		init-method="init">
 		<constructor-arg value="777" name="id" type="int"></constructor-arg>
@@ -64,17 +72,18 @@
 
 
 	<bean id="workPlace" class="ar.com.spring.WorkPlace" scope="prototype">
-
 	</bean>
 
+
+
+
 	<!-- apache data base commons : org.apache.commons.dbcp.BasicDataSource -->
-
-
 	<!-- Los datos para la configuración a la base de datos son los mismos que 
 		usamos en el jdbc.properties: jdbc.username=root jdbc.password=landa jdbc.driver=com.mysql.jdbc.Driver 
 		jdbc.url=jdbc:mysql://localhost:3306/springtutorial -->
 
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
 		<property name="driverClassName" value="${jdbc.driver}"></property>
 		<property name="url" value="${jdbc.url}"></property>
 		<property name="username" value="${jdbc.username}"></property>
@@ -87,13 +96,21 @@
 		configurar cuantas configuraciones se necesiten. -->
 
 
+	<!-- Notar: Este bean llamado transactionManager hace referencia a dataSource 
+		Apache DBCP. -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+
+		<property name="dataSource" ref="dataSource">
+		</property>
+
+	</bean>
+
+	<tx:annotation-driven />
+
 	<context:annotation-config></context:annotation-config>
 
 </beans>    
-
-
-
-
 
 
 

@@ -1,11 +1,12 @@
 package ar.com.spring;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 
 import ar.com.spring.dao.OffersDAO;
 import ar.com.spring.dao.SingleOfferDAO;
@@ -115,13 +116,46 @@ public class App {
 			/*
 			 * Notar que hicimos el insert desde el DAO directamente, creando el objeto Offers
 			 * con el nuevo constructor.
+			 * 
+			 * Además, lo hicimos uno por uno, pero también se puede hacerlo a traves de un 
+			 * BatchUpdate.
 			 * */
 			Offers offersDardo = new Offers("Dardo", "dardolanda@gmail.com", "Creando desde Create");
 			Offers offersCarlos = new Offers("Carlos", "carlosleis@gmail.com", "Insert desde Create");
 			
+			/*
+			 * Insert "a mano" uno por uno, usando el método createOffer.
+			 * */
 			singleOfferDao.createOffer(offersDardo);
 			singleOfferDao.createOffer(offersCarlos);			
-
+			System.out.println("--------------  Insertando a mano ------------");
+			System.out.println();
+			System.out.println();			
+			System.out.println("--------------  Fin Insertando a mano ------------");
+			
+			/*
+			 * Insert "masivo" desde una lista entera.
+			 * 
+			 * */
+			List<Offers> offersList = new ArrayList<Offers>();
+			
+			offersList.add(new Offers("Ariel2","arielquetedije@mail.com", "Creando desde la lista"));
+			offersList.add(new Offers("Dario2","darioquetedije@mail.com", "Tirate atrás viejo!!"));
+			offersList.add(new Offers("Cordobez2","cordoba@mail.com", "Anda hacer el canguro a la concha de tu madre"));
+			
+			System.out.println("--------------  Insertando desde una lista ------------");
+			
+			int[] insert = singleOfferDao.createOffers(offersList);
+			
+			for (int numberInsert : insert){
+				
+				System.out.println("Modified Row: " + numberInsert);
+				
+			}
+			
+			System.out.println();
+			System.out.println();
+			System.out.println("--------- ToString Offes iterando desde la Base de Datos ----------");
 			System.out.println();
 			for (Offers offers : offersDao.getOffers()) {
 
@@ -136,10 +170,14 @@ public class App {
 			
 			System.out.println();
 			System.out.println();
+			System.out.println("----------Tomando al objeto con ID 5 -------------");
 			System.out.println("Debería ser Pirulino:  " + singleOfferDao.getOfferById(5));
 			
 			
 			
+			
+			
+			System.out.println("y mi viejo que me hizo hincha de River!!!!!!!");
 
 		} catch (CannotGetJdbcConnectionException connectionException) {
 
